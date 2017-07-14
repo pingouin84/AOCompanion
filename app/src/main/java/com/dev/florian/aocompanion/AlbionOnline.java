@@ -5,4 +5,6 @@ package com.dev.florian.aocompanion;
  */
 
 public class AlbionOnline {
+
+    private String domaine = "";
 }
