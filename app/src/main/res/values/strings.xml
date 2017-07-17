@@ -9,4 +9,32 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_detail_news">DetailNewsActivity</string>
+
+    <string-array name="ao_tier">
+        <item>null</item>
+        <item>Tier 1</item>
+        <item>Tier 2</item>
+        <item>Tier 3</item>
+        <item>Tier 4</item>
+        <item>Tier 5</item>
+        <item>Tier 6</item>
+        <item>Tier 7</item>
+        <item>Tier 8</item>
+    </string-array>
+
+    <string-array name="ao_category">
+        <item>null</item>
+        <item>mainhand</item>
+        <item>head</item>
+        <item>potion</item>
+        <item>armor</item>
+        <item>bag</item>
+        <item>cape</item>
+        <item>shoes</item>
+        <item>mount</item>
+        <item>offhand</item>
+        <item>food</item>
+    </string-array>
+
+
 </resources>

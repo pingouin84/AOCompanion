@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dev.florian.aocompanion.Adapters.Holders.NewsHolder;
+import com.dev.florian.aocompanion.Adapters.Holders.PvpKillsHolder;
 import com.dev.florian.aocompanion.Class.News;
+import com.dev.florian.aocompanion.Class.PvpKills;
 import com.dev.florian.aocompanion.R;
 
 import java.util.List;
@@ -16,28 +18,28 @@ import java.util.List;
  * Created by flori on 28/02/2016.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
+public class PvpKillsAdapter extends RecyclerView.Adapter<PvpKillsHolder> {
 
-    List<News> list;
+    List<PvpKills> list;
 
     //ajouter un constructeur prenant en entrée une liste
-    public NewsAdapter(List<News> list) {
+    public PvpKillsAdapter(List<PvpKills> list) {
         this.list = list;
     }
 
     //cette fonction permet de créer les viewHolder
     //et par la même indiquer la vue à inflater (à partir des layout xml)
     @Override
-    public NewsHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_news,viewGroup,false);
-        return new NewsHolder(view);
+    public PvpKillsHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_pvp_kills,viewGroup,false);
+        return new PvpKillsHolder(view);
     }
 
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
-    public void onBindViewHolder(NewsHolder newsHolder, int position) {
-        News news = list.get(position);
-        newsHolder.bind(news);
+    public void onBindViewHolder(PvpKillsHolder pvpKillsHolder, int position) {
+        PvpKills pvpKills = list.get(position);
+        pvpKillsHolder.bind(pvpKills);
     }
 
     @Override

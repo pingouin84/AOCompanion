@@ -5,10 +5,42 @@
     tools:context="com.dev.florian.aocompanion.NewsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/news_recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/dev_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DEVELOPPEMENT" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/com_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COMMUNAUTE" />
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/news_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+    </LinearLayout>
 
 </FrameLayout>

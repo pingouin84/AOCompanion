@@ -1,0 +1,74 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dev.florian.aocompanion.KillBoardFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="visible" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_killborad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/item_pvp_kills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PVP KILLS" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/item_battles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BATTLES" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/item_gvg_matches"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GVG MATCHES" />
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_pvp_kills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/item_top_pvp_kills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOP PVP KILLS" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/item_recent_kills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RECENT KILLS" />
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</FrameLayout>

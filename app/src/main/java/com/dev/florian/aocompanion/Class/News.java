@@ -1,13 +1,15 @@
-package com.dev.florian.aocompanion;
+package com.dev.florian.aocompanion.Class;
 
 import org.jsoup.nodes.Element;
+
+import java.io.Serializable;
 
 /**
  * Created by flori on 14/07/2017.
  */
 
 public class News {
-    private String titre,date, imageUrl,article,url;
+    private String titre,date, imageUrl, resume,url;
 
     public static News parse(Element el) {
         News news = new News();
@@ -15,7 +17,7 @@ public class News {
         news.titre = el.select("h3").text();
         news.imageUrl = el.select("div.news-item__image img").attr("src");
         news.date = el.select("div.news-item__meta > span").text();
-        news.article = el.select("div.news-item__body").text();
+        news.resume = el.select("div.news-item__body").text();
         return news;
     }
 
@@ -31,8 +33,8 @@ public class News {
         return imageUrl;
     }
 
-    public String getArticle() {
-        return article;
+    public String getResume() {
+        return resume;
     }
 
     public String getUrl() {

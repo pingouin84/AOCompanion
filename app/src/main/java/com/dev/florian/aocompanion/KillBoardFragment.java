@@ -1,6 +1,7 @@
 package com.dev.florian.aocompanion;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -12,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.dev.florian.aocompanion.Adapters.NewsAdapter;
-import com.dev.florian.aocompanion.Class.News;
+import com.dev.florian.aocompanion.Adapters.PvpKillsAdapter;
+import com.dev.florian.aocompanion.Class.PvpKills;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,26 +22,34 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NewsFragment extends Fragment {
+public class KillBoardFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-    private NewsAdapter adapter;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
-    @Bind(R.id.news_recycler_view)
+    private PvpKillsAdapter adapter;
+
+    @Bind(R.id.recycler_view)
     RecyclerView recyclerView ;
-    @Bind(R.id.tab_layout)
-    TabLayout tabLayout ;
+    @Bind(R.id.tab_pvp_kills)
+    TabLayout tabLayout_kills;
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
 
-    public NewsFragment() {
+    public KillBoardFragment() {
         // Required empty public constructor
     }
 
-    public static NewsFragment newInstance(String param1, String param2) {
-        NewsFragment fragment = new NewsFragment();
+     public static KillBoardFragment newInstance(String param1, String param2) {
+        KillBoardFragment fragment = new KillBoardFragment();
         Bundle args = new Bundle();
-        //args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,8 +58,8 @@ public class NewsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //mParam1 = getArguments().getString(ARG_PARAM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -58,22 +67,23 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_kill_board, container, false);
 
-        getActivity().setTitle("Actualités");
+        getActivity().setTitle("KILLBOARD");
 
         ButterKnife.bind(this, view);
 
+
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout_kills.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 String param = "";
                 if (tab.getPosition() == 0)
-                    param = AlbionOnline.NEWS_DEV;
+                    param = AlbionOnline.TOP_PVP_KILLS;
                 if (tab.getPosition() == 1)
-                    param = AlbionOnline.NEWS_COM;
+                    param = AlbionOnline.RECENT_KILLS;
                 thread (param);
             }
 
@@ -88,7 +98,7 @@ public class NewsFragment extends Fragment {
             }
         });
 
-        thread (AlbionOnline.NEWS_COM);
+        thread (AlbionOnline.TOP_PVP_KILLS);
 
         return view;
     }
@@ -96,8 +106,8 @@ public class NewsFragment extends Fragment {
     private void thread (String param) {
         progressBar.setVisibility(View.VISIBLE);
 
-        List<News>newsList = new ArrayList<>();
-        adapter = new NewsAdapter(newsList);
+        List<PvpKills>pvpKillsList = new ArrayList<>();
+        adapter = new PvpKillsAdapter(pvpKillsList);
         recyclerView.setAdapter(adapter);
 
         Thread thread = new Thread();
@@ -105,7 +115,7 @@ public class NewsFragment extends Fragment {
         thread.execute(parametre);
     }
 
-    @Override
+        @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
@@ -113,31 +123,31 @@ public class NewsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        //mListener = null;
     }
 
     class Thread extends AsyncTask<String, Integer, Boolean> {
         private String code;
-        private List<News> newsList = new ArrayList<>();
+        private List<PvpKills> pvpKillsList = new ArrayList<>();
 
         @Override
         protected Boolean doInBackground(String... strings) {
             AlbionOnline ao = new AlbionOnline();
-            newsList = ao.getNewsList(strings[0]);
-            if (newsList != null && newsList.size()>0)
+            pvpKillsList = ao.getPvpKills(strings[0]);
+            if (pvpKillsList!=null && pvpKillsList.size()>0)
                 return true;
             else
                 return false;
         }
 
         protected void onPostExecute (Boolean resultat){
-            afficher(resultat,newsList);
+            afficher(resultat,pvpKillsList);
         }
     }
 
-    void afficher (Boolean resultat,List<News> newsList) {
+    void afficher (Boolean resultat,List<PvpKills> pvpKillsList) {
+        //this.pvpKillsList = pvpKillsList;
         if (resultat) {
-            adapter = new NewsAdapter(newsList);
+            adapter = new PvpKillsAdapter(pvpKillsList);
             recyclerView.setAdapter(adapter);
         }
         progressBar.setVisibility(View.GONE);
