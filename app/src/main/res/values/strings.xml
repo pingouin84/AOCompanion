@@ -35,6 +35,7 @@
         <item>offhand</item>
         <item>food</item>
     </string-array>
+    <string name="title_activity_player_detail">PlayerDetailActivity</string>
 
 
 </resources>

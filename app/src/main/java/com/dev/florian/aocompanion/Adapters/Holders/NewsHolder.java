@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dev.florian.aocompanion.DetailNewsActivity;
+import com.dev.florian.aocompanion.NewsDetailActivity;
 import com.dev.florian.aocompanion.Class.News;
 import com.dev.florian.aocompanion.R;
 import com.squareup.picasso.Picasso;
@@ -45,9 +45,9 @@ public class NewsHolder extends RecyclerView.ViewHolder{
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(itemView.getContext(), DetailNewsActivity.class);
-                intent.putExtra(DetailNewsActivity.ARG_NEWS, news.getUrl());
-                intent.putExtra(DetailNewsActivity.ARG_TITLE, news.getTitre());
+                Intent intent = new Intent(itemView.getContext(), NewsDetailActivity.class);
+                intent.putExtra(NewsDetailActivity.ARG_NEWS, news.getUrl());
+                intent.putExtra(NewsDetailActivity.ARG_TITLE, news.getTitre());
                 itemView.getContext().startActivity(intent);
             }
         });

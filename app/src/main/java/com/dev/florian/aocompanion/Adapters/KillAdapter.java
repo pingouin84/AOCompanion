@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dev.florian.aocompanion.Adapters.Holders.NewsHolder;
-import com.dev.florian.aocompanion.Adapters.Holders.PvpKillsHolder;
-import com.dev.florian.aocompanion.Class.News;
-import com.dev.florian.aocompanion.Class.PvpKills;
+import com.dev.florian.aocompanion.Adapters.Holders.KillHolder;
+import com.dev.florian.aocompanion.Class.Kill;
 import com.dev.florian.aocompanion.R;
 
 import java.util.List;
@@ -18,28 +16,28 @@ import java.util.List;
  * Created by flori on 28/02/2016.
  */
 
-public class PvpKillsAdapter extends RecyclerView.Adapter<PvpKillsHolder> {
+public class KillAdapter extends RecyclerView.Adapter<KillHolder> {
 
-    List<PvpKills> list;
+    List<Kill> list;
 
     //ajouter un constructeur prenant en entrée une liste
-    public PvpKillsAdapter(List<PvpKills> list) {
+    public KillAdapter(List<Kill> list) {
         this.list = list;
     }
 
     //cette fonction permet de créer les viewHolder
     //et par la même indiquer la vue à inflater (à partir des layout xml)
     @Override
-    public PvpKillsHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
+    public KillHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_pvp_kills,viewGroup,false);
-        return new PvpKillsHolder(view);
+        return new KillHolder(view);
     }
 
     //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
     @Override
-    public void onBindViewHolder(PvpKillsHolder pvpKillsHolder, int position) {
-        PvpKills pvpKills = list.get(position);
-        pvpKillsHolder.bind(pvpKills);
+    public void onBindViewHolder(KillHolder killHolder, int position) {
+        Kill kill = list.get(position);
+        killHolder.bind(kill);
     }
 
     @Override

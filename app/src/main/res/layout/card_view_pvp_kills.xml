@@ -19,7 +19,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <!-- Les CardView agissent comme des FrameLayout,
          pour avoir une organisation verticale nous devons
@@ -29,6 +30,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -36,8 +38,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="10dp"
-                android:text="09.07.2017 20:56:30" />
+                android:text="09.07.2017 20:56:30"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/totalVictimKillFame"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="653.079k"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/numberOfParticipants"
@@ -45,30 +55,24 @@
                 android:layout_height="36dp"
                 android:layout_weight="0"
                 android:adjustViewBounds="false"
-                app:srcCompat="@mipmap/ic_launcher" />
+                app:srcCompat="@drawable/kill_solo" />
 
-            <TextView
-                android:id="@+id/totalVictimKillFame"
-                android:layout_width="85dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:padding="10dp"
-                android:text="653.079k" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/killer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Sellack [Sexy] - The Filthy Casuals" />
+            android:paddingBottom="5dp"
+            android:text="Sellack [Sexy] - The Filthy Casuals"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/victim"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Mohicans [Sexy] - THE ABYSS" />
+            android:text="Mohicans [Sexy] - THE ABYSS"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

@@ -2,20 +2,12 @@ package com.dev.florian.aocompanion;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.WebView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DetailNewsActivity extends AppCompatActivity {
+public class NewsDetailActivity extends AppCompatActivity {
 
     public static final String ARG_NEWS = "NEWS";
     public static final String ARG_TITLE = "TITLE";
@@ -25,18 +17,18 @@ public class DetailNewsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_news);
+        setContentView(R.layout.activity_news_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setTitle(getIntent().getStringExtra(DetailNewsActivity.ARG_TITLE));
+        setTitle(getIntent().getStringExtra(NewsDetailActivity.ARG_TITLE));
 
         webview = (WebView)findViewById(R.id.webView);
 
         Thread thread = new Thread();
-        String[] parametre = new String[]{getIntent().getStringExtra(DetailNewsActivity.ARG_NEWS)};
+        String[] parametre = new String[]{getIntent().getStringExtra(NewsDetailActivity.ARG_NEWS)};
         thread.execute(parametre);
     }
 

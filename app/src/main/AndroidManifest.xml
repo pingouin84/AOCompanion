@@ -25,9 +25,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailNewsActivity"
+            android:name=".NewsDetailActivity"
             android:label="@string/title_activity_detail_news"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dev.florian.aocompanion.MainActivity" />
+        </activity>
+        <activity
+            android:name=".KillDetailActivity"
+            android:label="@string/title_activity_player_detail"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

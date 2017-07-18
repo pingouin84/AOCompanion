@@ -1,7 +1,7 @@
 package com.dev.florian.aocompanion;
 
+import com.dev.florian.aocompanion.Class.Kill;
 import com.dev.florian.aocompanion.Class.News;
-import com.dev.florian.aocompanion.Class.PvpKills;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,9 +47,10 @@ public class AlbionOnline {
         Connection.Response response;
         try {
              response = Jsoup.connect(url)
-                    .ignoreContentType(true)
-                    .method(Connection.Method.GET)
-                    .execute();
+                     .ignoreContentType(true)
+                     .method(Connection.Method.GET)
+                     .maxBodySize(0)
+                     .execute();
             return response.body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,8 +82,8 @@ public class AlbionOnline {
         return null;
     }
 
-    public List<PvpKills> getPvpKills(String param) {
-        List<PvpKills> pvpKillsList = new ArrayList<>();
+    public List<Kill> getKillList(String param) {
+        List<Kill> killList = new ArrayList<>();
         try {
             //JSONObject object = new JSONObject(getJson(""));
             JSONArray array = new JSONArray();
@@ -93,14 +94,26 @@ public class AlbionOnline {
 
             for (int x=0; x< array.length();x++){
                 JSONObject  object = array.getJSONObject(x);
-                pvpKillsList.add(PvpKills.parse(object));
+                killList.add(Kill.parse(object));
             }
-            return pvpKillsList;
+            return killList;
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
         return null;
+    }
+
+    public Kill getKill(int param) {
+        Kill kill = new Kill();
+        try {
+            JSONObject object = new JSONObject(getJson("https://gameinfo.albiononline.com/api/gameinfo/events/"+param));
+            kill = Kill.parse(object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return kill;
     }
 }

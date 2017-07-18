@@ -1,7 +1,6 @@
 package com.dev.florian.aocompanion;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.dev.florian.aocompanion.Adapters.PvpKillsAdapter;
-import com.dev.florian.aocompanion.Class.PvpKills;
+import com.dev.florian.aocompanion.Adapters.KillAdapter;
+import com.dev.florian.aocompanion.Class.Kill;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class KillBoardFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private PvpKillsAdapter adapter;
+    private KillAdapter adapter;
 
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView ;
@@ -106,8 +105,8 @@ public class KillBoardFragment extends Fragment {
     private void thread (String param) {
         progressBar.setVisibility(View.VISIBLE);
 
-        List<PvpKills>pvpKillsList = new ArrayList<>();
-        adapter = new PvpKillsAdapter(pvpKillsList);
+        List<Kill> killList = new ArrayList<>();
+        adapter = new KillAdapter(killList);
         recyclerView.setAdapter(adapter);
 
         Thread thread = new Thread();
@@ -127,27 +126,27 @@ public class KillBoardFragment extends Fragment {
 
     class Thread extends AsyncTask<String, Integer, Boolean> {
         private String code;
-        private List<PvpKills> pvpKillsList = new ArrayList<>();
+        private List<Kill> killList = new ArrayList<>();
 
         @Override
         protected Boolean doInBackground(String... strings) {
             AlbionOnline ao = new AlbionOnline();
-            pvpKillsList = ao.getPvpKills(strings[0]);
-            if (pvpKillsList!=null && pvpKillsList.size()>0)
+            killList = ao.getKillList(strings[0]);
+            if (killList !=null && killList.size()>0)
                 return true;
             else
                 return false;
         }
 
         protected void onPostExecute (Boolean resultat){
-            afficher(resultat,pvpKillsList);
+            afficher(resultat, killList);
         }
     }
 
-    void afficher (Boolean resultat,List<PvpKills> pvpKillsList) {
-        //this.pvpKillsList = pvpKillsList;
+    void afficher (Boolean resultat,List<Kill> killList) {
+        //this.killList = killList;
         if (resultat) {
-            adapter = new PvpKillsAdapter(pvpKillsList);
+            adapter = new KillAdapter(killList);
             recyclerView.setAdapter(adapter);
         }
         progressBar.setVisibility(View.GONE);
