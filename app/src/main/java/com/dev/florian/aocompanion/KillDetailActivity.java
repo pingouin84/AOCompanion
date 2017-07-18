@@ -245,7 +245,7 @@ public class KillDetailActivity extends AppCompatActivity {
 
             afficherPlayer(kill.getKiller());
         }
-        //progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
     }
 
     void afficherPlayer (Player player) {

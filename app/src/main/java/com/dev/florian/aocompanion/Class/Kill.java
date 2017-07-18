@@ -30,17 +30,22 @@ public class Kill {
         kill.TotalVictimKillFame = object.optInt("TotalVictimKillFame");
 
         JSONArray array = object.optJSONArray("Participants");
-        kill.participants = new ArrayList<>();
-        for (int x = 0;x<array.length();x++){
-            Player player = Player.parse(array.optJSONObject(x));
-            kill.participants.add(player);
-            kill.damageTotal+=player.getDamageDone();
-        }
+        if (kill.numberOfParticipants>0){
+            kill.participants = new ArrayList<>();
+            for (int x = 0;x<array.length();x++){
+                Player player = Player.parse(array.optJSONObject(x));
+                kill.participants.add(player);
+                kill.damageTotal+=player.getDamageDone();
+            }
 
-        for (Player player:kill.participants) {
-            player.setDamage(player.getDamageDone()*100/kill.damageTotal);
-            if (player.getName().equals(kill.killer.getName()))
-                kill.killer.setDamage(player.getDamage());
+            for (Player player:kill.participants) {
+                player.setDamage(player.getDamageDone()*100/kill.damageTotal);
+                if (player.getName().equals(kill.killer.getName()))
+                    kill.killer.setDamage(player.getDamage());
+            }
+        }
+        else {
+            kill.killer.setDamage(100);
         }
 
         return kill;
