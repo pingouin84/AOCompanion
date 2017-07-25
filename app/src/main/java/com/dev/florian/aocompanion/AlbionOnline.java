@@ -1,5 +1,6 @@
 package com.dev.florian.aocompanion;
 
+import com.dev.florian.aocompanion.Class.Item;
 import com.dev.florian.aocompanion.Class.Kill;
 import com.dev.florian.aocompanion.Class.News;
 
@@ -115,5 +116,18 @@ public class AlbionOnline {
         }
 
         return kill;
+    }
+
+    public Item getItem(String name) {
+        Item item = new Item();
+
+        try {
+            JSONObject object = new JSONObject(getJson("https://gameinfo.albiononline.com/api/gameinfo/items/"+name+"/data"));
+            item = Item.parseItem(object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return item;
     }
 }

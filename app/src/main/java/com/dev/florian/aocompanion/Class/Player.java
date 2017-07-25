@@ -1,6 +1,10 @@
 package com.dev.florian.aocompanion.Class;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by flori on 17/07/2017.
@@ -10,6 +14,7 @@ public class Player {
     private String name,guildName,allianceName,allianceTag;
     private int killFame,damageDone,damage,averageItemPower;
     private Equipment equipment;
+    private List<Item> inventory;
 
     public static Player parse(JSONObject object) {
         Player player = new Player();
@@ -21,6 +26,14 @@ public class Player {
         player.damageDone = object.optInt("DamageDone");
         player.averageItemPower = object.optInt("AverageItemPower");
         player.equipment = Equipment.parse(object.optJSONObject("Equipment"));
+
+        player.inventory = new ArrayList<>();
+        JSONArray array = object.optJSONArray("Inventory");
+        for (int x = 0; x < array.length();x++) {
+            JSONObject objItem = array.optJSONObject(x);
+            if (objItem != null)
+                player.inventory.add(Item.parseKill(objItem));
+        }
 
         return player;
     }
@@ -109,5 +122,13 @@ public class Player {
 
     public void setAverageItemPower(int averageItemPower) {
         averageItemPower = averageItemPower;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
     }
 }

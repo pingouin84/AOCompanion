@@ -18,7 +18,7 @@ public class Kill {
     private String timeStamp;
     private int numberOfParticipants,EventId,damageTotal,TotalVictimKillFame;
     private Player killer, victim;
-    private List<Player> participants;
+    private List<Player> participants,groupMembers;
 
     public static Kill parse(JSONObject object) {
         Kill kill = new Kill();
@@ -29,7 +29,14 @@ public class Kill {
         kill.EventId = object.optInt("EventId");
         kill.TotalVictimKillFame = object.optInt("TotalVictimKillFame");
 
-        JSONArray array = object.optJSONArray("Participants");
+        JSONArray array = object.optJSONArray("GroupMembers");
+        kill.groupMembers = new ArrayList<>();
+        for (int x = 0;x<array.length();x++){
+            Player player = Player.parse(array.optJSONObject(x));
+            kill.groupMembers.add(player);
+        }
+
+        array = object.optJSONArray("Participants");
         if (kill.numberOfParticipants>0){
             kill.participants = new ArrayList<>();
             for (int x = 0;x<array.length();x++){
@@ -38,7 +45,7 @@ public class Kill {
                 kill.damageTotal+=player.getDamageDone();
             }
 
-            for (Player player:kill.participants) {
+            for (Player player : kill.participants) {
                 player.setDamage(player.getDamageDone()*100/kill.damageTotal);
                 if (player.getName().equals(kill.killer.getName()))
                     kill.killer.setDamage(player.getDamage());
@@ -107,5 +114,21 @@ public class Kill {
 
     public void setParticipants(List<Player> participants) {
         this.participants = participants;
+    }
+
+    public int getDamageTotal() {
+        return damageTotal;
+    }
+
+    public void setDamageTotal(int damageTotal) {
+        this.damageTotal = damageTotal;
+    }
+
+    public List<Player> getGroupMembers() {
+        return groupMembers;
+    }
+
+    public void setGroupMembers(List<Player> groupMembers) {
+        this.groupMembers = groupMembers;
     }
 }

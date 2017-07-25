@@ -36,6 +36,7 @@
         <item>food</item>
     </string-array>
     <string name="title_activity_player_detail">PlayerDetailActivity</string>
+    <string name="title_activity_item_detail">ItemDetailActivity</string>
 
 
 </resources>

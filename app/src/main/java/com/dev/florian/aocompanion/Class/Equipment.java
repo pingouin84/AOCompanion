@@ -12,16 +12,16 @@ public class Equipment {
     public static Equipment parse(JSONObject object) {
         Equipment equipment = new Equipment();
 
-        equipment.mainHand = Item.parse(object.optJSONObject("MainHand"));
-        equipment.offHand = Item.parse(object.optJSONObject("OffHand"));
-        equipment.head = Item.parse(object.optJSONObject("Head"));
-        equipment.armor = Item.parse(object.optJSONObject("Armor"));
-        equipment.shoes = Item.parse(object.optJSONObject("Shoes"));
-        equipment.bag = Item.parse(object.optJSONObject("Bag"));
-        equipment.cape = Item.parse(object.optJSONObject("Cape"));
-        equipment.mount = Item.parse(object.optJSONObject("Mount"));
-        equipment.potion = Item.parse(object.optJSONObject("Potion"));
-        equipment.food = Item.parse(object.optJSONObject("Food"));
+        equipment.mainHand = Item.parseKill(object.optJSONObject("MainHand"));
+        equipment.offHand = Item.parseKill(object.optJSONObject("OffHand"));
+        equipment.head = Item.parseKill(object.optJSONObject("Head"));
+        equipment.armor = Item.parseKill(object.optJSONObject("Armor"));
+        equipment.shoes = Item.parseKill(object.optJSONObject("Shoes"));
+        equipment.bag = Item.parseKill(object.optJSONObject("Bag"));
+        equipment.cape = Item.parseKill(object.optJSONObject("Cape"));
+        equipment.mount = Item.parseKill(object.optJSONObject("Mount"));
+        equipment.potion = Item.parseKill(object.optJSONObject("Potion"));
+        equipment.food = Item.parseKill(object.optJSONObject("Food"));
 
         return equipment;
     }

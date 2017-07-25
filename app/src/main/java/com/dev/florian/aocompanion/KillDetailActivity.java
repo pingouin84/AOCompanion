@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,10 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.dev.florian.aocompanion.Adapters.GroupMembersAdapter;
+import com.dev.florian.aocompanion.Adapters.ItemKillAdapter;
+import com.dev.florian.aocompanion.Adapters.ParticipantsAdapter;
 import com.dev.florian.aocompanion.Class.Equipment;
 import com.dev.florian.aocompanion.Class.Kill;
 import com.dev.florian.aocompanion.Class.Player;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +33,10 @@ public class KillDetailActivity extends AppCompatActivity {
     public static String ARG_EVENT_ID = "ARG_EVENT_ID";
 
     private Kill kill;
+
+    private ItemKillAdapter itemKillAdapter;
+    private ParticipantsAdapter participantsAdapter;
+    private GroupMembersAdapter groupMembersAdapter;
 
     @Bind(R.id.tab_layout)
     TabLayout tab_layout;
@@ -41,6 +53,12 @@ public class KillDetailActivity extends AppCompatActivity {
     LinearLayout ll_player_feud;
     @Bind(R.id.ll_guild_feud)
     LinearLayout ll_guild_feud;
+    @Bind(R.id.ll_inventory)
+    LinearLayout ll_inventory;
+    @Bind(R.id.ll_participants)
+    LinearLayout ll_participants;
+    @Bind(R.id.ll_groupMembers)
+    LinearLayout ll_groupMembers;
 
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
@@ -91,6 +109,13 @@ public class KillDetailActivity extends AppCompatActivity {
     @Bind(R.id.imageView_shoes)
     ImageView imageView_shoes;
 
+    @Bind(R.id.rv_inventory)
+    RecyclerView rv_inventory;
+    @Bind(R.id.rv_participants)
+    RecyclerView rv_participants;
+    @Bind(R.id.rv_groupMembers)
+    RecyclerView rv_groupMembers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +132,10 @@ public class KillDetailActivity extends AppCompatActivity {
 
         VisibilityGone();
         VisibilityGeneral();
+
+        rv_inventory.setLayoutManager(new GridLayoutManager(this,4));
+        rv_participants.setLayoutManager(new LinearLayoutManager(this));
+        rv_groupMembers.setLayoutManager(new LinearLayoutManager(this));
 
         tab_layout.addOnTabSelectedListener(tab_layout_selected);
 
@@ -146,6 +175,7 @@ public class KillDetailActivity extends AppCompatActivity {
     private void VisibilityVictim() {
         ll_victim.setVisibility(View.VISIBLE);
         ll_gear.setVisibility(View.VISIBLE);
+        ll_inventory.setVisibility(View.VISIBLE);
         label_killer_victim_gear.setText("VICTIM'S GEAR");
         afficherPlayer(kill.getVictim());
     }
@@ -153,6 +183,8 @@ public class KillDetailActivity extends AppCompatActivity {
     private void VisibilityKiller() {
         ll_killer.setVisibility(View.VISIBLE);
         ll_gear.setVisibility(View.VISIBLE);
+        ll_participants.setVisibility(View.VISIBLE);
+        ll_groupMembers.setVisibility(View.VISIBLE);
         textView_damage_killer.setVisibility(View.VISIBLE);
         label_killer_victim_gear.setText("KILLER'S GEAR");
         afficherPlayer(kill.getKiller());
@@ -173,6 +205,9 @@ public class KillDetailActivity extends AppCompatActivity {
         ll_gear.setVisibility(View.GONE);
         ll_guild_feud.setVisibility(View.GONE);
         ll_player_feud.setVisibility(View.GONE);
+        ll_inventory.setVisibility(View.GONE);
+        ll_participants.setVisibility(View.GONE);
+        ll_groupMembers.setVisibility(View.GONE);
         textView_averageItemPower_killer.setVisibility(View.GONE);
         textView_averageItemPower_victim.setVisibility(View.GONE);
         textView_damage_killer.setVisibility(View.GONE);
@@ -243,6 +278,12 @@ public class KillDetailActivity extends AppCompatActivity {
             textView_guild_victim.setText(player.getFullGuild());
             textView_averageItemPower_victim.setText(String.valueOf(player.getAverageItemPower()));
 
+            participantsAdapter = new ParticipantsAdapter(kill.getParticipants());
+            rv_participants.setAdapter(participantsAdapter);
+
+            groupMembersAdapter = new GroupMembersAdapter(kill.getGroupMembers());
+            rv_groupMembers.setAdapter(groupMembersAdapter);
+
             afficherPlayer(kill.getKiller());
         }
         progressBar.setVisibility(View.GONE);
@@ -251,15 +292,18 @@ public class KillDetailActivity extends AppCompatActivity {
     void afficherPlayer (Player player) {
         textView_damage_killer.setText(String.valueOf(player.getDamage())+"%");
         Equipment equipment = player.getEquipment();
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getArmor().getType()).into(imageView_armor);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getBag().getType()).into(imageView_bag);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getCape().getType()).into(imageView_cap);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getFood().getType()).into(imageView_food);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getHead().getType()).into(imageView_head);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getMainHand().getType()).into(imageView_mainhand);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getOffHand().getType()).into(imageView_offhand);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getMount().getType()).into(imageView_mount);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getPotion().getType()).into(imageView_potion);
-        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getShoes().getType()).into(imageView_shoes);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getArmor().getType()+"?quality="+equipment.getArmor().getQuality()).into(imageView_armor);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getBag().getType()+"?quality="+equipment.getBag().getQuality()).into(imageView_bag);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getCape().getType()+"?quality="+equipment.getCape().getQuality()).into(imageView_cap);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getFood().getType()+"?quality="+equipment.getFood().getQuality()).into(imageView_food);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getHead().getType()+"?quality="+equipment.getHead().getQuality()).into(imageView_head);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getMainHand().getType()+"?quality="+equipment.getMainHand().getQuality()).into(imageView_mainhand);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getOffHand().getType()+"?quality="+equipment.getOffHand().getQuality()).into(imageView_offhand);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getMount().getType()+"?quality="+equipment.getMount().getQuality()).into(imageView_mount);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getPotion().getType()+"?quality="+equipment.getPotion().getQuality()).into(imageView_potion);
+        Picasso.with(this).load("https://gameinfo.albiononline.com/api/gameinfo/items/"+equipment.getShoes().getType()+"?quality="+equipment.getShoes().getQuality()).into(imageView_shoes);
+
+        itemKillAdapter = new ItemKillAdapter(player.getInventory());
+        rv_inventory.setAdapter(itemKillAdapter);
     }
 }

@@ -7,17 +7,105 @@ import org.json.JSONObject;
  */
 
 public class Item {
-    private String type;
-    private int count,quality;
+    private String uniqueName,localizedName,localizedDescriptions,categoryId,slotType,itemType,type;
+    private int tier,level,itemPower,quality;
 
-    public static Item parse(JSONObject object) {
+    public static Item parseKill(JSONObject object) {
         Item item = new Item();
         if (object!=null){
             item.type = object.optString("Type");
-            item.count = object.optInt("Count");
             item.quality = object.optInt("Quality");
         }
         return item;
+    }
+
+    public static Item parseItem(JSONObject object) {
+        Item item = new Item();
+        if (object!=null){
+            item.uniqueName = object.optString("uniqueName");
+            item.localizedName = object.optJSONObject("localizedNames").optString("FR-FR");
+            item.localizedDescriptions = object.optJSONObject("localizedDescriptions").optString("FR-FR");
+            item.categoryId = object.optString("categoryId");
+            item.slotType = object.optString("slotType");
+            item.itemType = object.optString("itemType");
+
+            item.tier = object.optInt("tier");
+            item.level = object.optInt("level");
+            item.itemPower = object.optInt("itemPower");
+        }
+        return item;
+    }
+
+    public String getUniqueName() {
+        return uniqueName;
+    }
+
+    public void setUniqueName(String uniqueName) {
+        this.uniqueName = uniqueName;
+    }
+
+    public String getLocalizedName() {
+        return localizedName;
+    }
+
+    public void setLocalizedName(String localizedName) {
+        this.localizedName = localizedName;
+    }
+
+    public String getLocalizedDescriptions() {
+        return localizedDescriptions;
+    }
+
+    public void setLocalizedDescriptions(String localizedDescriptions) {
+        this.localizedDescriptions = localizedDescriptions;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getSlotType() {
+        return slotType;
+    }
+
+    public void setSlotType(String slotType) {
+        this.slotType = slotType;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
+
+    public int getTier() {
+        return tier;
+    }
+
+    public void setTier(int tier) {
+        this.tier = tier;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getItemPower() {
+        return itemPower;
+    }
+
+    public void setItemPower(int itemPower) {
+        this.itemPower = itemPower;
     }
 
     public String getType() {
@@ -25,15 +113,7 @@ public class Item {
     }
 
     public void setType(String type) {
-        type = type;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
+        this.type = type;
     }
 
     public int getQuality() {
