@@ -130,4 +130,34 @@ public class AlbionOnline {
 
         return item;
     }
+
+    public List<Kill> getPlayersFeud(String idKiller, String idVictim) {
+        List<Kill> killList = new ArrayList<>();
+        try {
+            JSONArray array = new JSONArray(getJson("https://gameinfo.albiononline.com/api/gameinfo/events/"+idKiller+"/history/"+idVictim));
+            for (int x=0; x< array.length();x++){
+                JSONObject  object = array.getJSONObject(x);
+                killList.add(Kill.parse(object));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return killList;
+    }
+
+    public List<Kill> getGuildFeud(String idGuildKiller, String idGuildVictim) {
+        List<Kill> killList = new ArrayList<>();
+        try {
+            JSONArray array = new JSONArray(getJson("https://gameinfo.albiononline.com/api/gameinfo/guilds/"+idGuildKiller+"/feud/"+idGuildVictim));
+            for (int x=0; x< array.length();x++){
+                JSONObject  object = array.getJSONObject(x);
+                killList.add(Kill.parse(object));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return killList;
+    }
 }

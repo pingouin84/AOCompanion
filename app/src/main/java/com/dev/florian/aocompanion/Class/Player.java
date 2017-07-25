@@ -11,15 +11,17 @@ import java.util.List;
  */
 
 public class Player {
-    private String name,guildName,allianceName,allianceTag;
+    private String id,name,guildName,guildId,allianceName,allianceTag;
     private int killFame,damageDone,damage,averageItemPower;
     private Equipment equipment;
     private List<Item> inventory;
 
     public static Player parse(JSONObject object) {
         Player player = new Player();
+        player.id = object.optString("Id");
         player.name = object.optString("Name");
         player.guildName = object.optString("GuildName");
+        player.guildId = object.optString("GuildId");
         player.allianceName = object.optString("AllianceName");
         player.allianceTag = object.optString("AllianceTag");
         player.killFame = object.optInt("KillFame");
@@ -130,5 +132,21 @@ public class Player {
 
     public void setInventory(List<Item> inventory) {
         this.inventory = inventory;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getGuildId() {
+        return guildId;
+    }
+
+    public void setGuildId(String guildId) {
+        this.guildId = guildId;
     }
 }

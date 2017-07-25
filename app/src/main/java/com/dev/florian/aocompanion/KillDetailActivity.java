@@ -17,12 +17,14 @@ import android.widget.TextView;
 
 import com.dev.florian.aocompanion.Adapters.GroupMembersAdapter;
 import com.dev.florian.aocompanion.Adapters.ItemKillAdapter;
+import com.dev.florian.aocompanion.Adapters.KillAdapter;
 import com.dev.florian.aocompanion.Adapters.ParticipantsAdapter;
 import com.dev.florian.aocompanion.Class.Equipment;
 import com.dev.florian.aocompanion.Class.Kill;
 import com.dev.florian.aocompanion.Class.Player;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -37,6 +39,7 @@ public class KillDetailActivity extends AppCompatActivity {
     private ItemKillAdapter itemKillAdapter;
     private ParticipantsAdapter participantsAdapter;
     private GroupMembersAdapter groupMembersAdapter;
+    private KillAdapter playersFeudAdapter,guildFeudAdapter;
 
     @Bind(R.id.tab_layout)
     TabLayout tab_layout;
@@ -115,6 +118,10 @@ public class KillDetailActivity extends AppCompatActivity {
     RecyclerView rv_participants;
     @Bind(R.id.rv_groupMembers)
     RecyclerView rv_groupMembers;
+    @Bind(R.id.rv_players_feud)
+    RecyclerView rv_players_feud;
+    @Bind(R.id.rv_guild_feud)
+    RecyclerView rv_guild_feud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +143,8 @@ public class KillDetailActivity extends AppCompatActivity {
         rv_inventory.setLayoutManager(new GridLayoutManager(this,4));
         rv_participants.setLayoutManager(new LinearLayoutManager(this));
         rv_groupMembers.setLayoutManager(new LinearLayoutManager(this));
+        rv_players_feud.setLayoutManager(new LinearLayoutManager(this));
+        rv_guild_feud.setLayoutManager(new LinearLayoutManager(this));
 
         tab_layout.addOnTabSelectedListener(tab_layout_selected);
 
@@ -244,23 +253,31 @@ public class KillDetailActivity extends AppCompatActivity {
     class Thread extends AsyncTask<Integer, Integer, Boolean> {
         private String code;
         private Kill kill = new Kill();
+        private List<Kill> players_feud = new ArrayList<>();
+        private List<Kill> guild_feud = new ArrayList<>();
 
         @Override
         protected Boolean doInBackground(Integer... params) {
             AlbionOnline ao = new AlbionOnline();
             kill = ao.getKill(params[0]);
-            if (kill != null)
-                return true;
-            else
-                return false;
+            if (kill != null) {
+                players_feud = ao.getPlayersFeud(kill.getKiller().getId(),kill.getVictim().getId());
+                if (players_feud.size() > 0) {
+                    guild_feud = ao.getGuildFeud(kill.getKiller().getGuildId(), kill.getVictim().getGuildId());
+                    if (guild_feud.size() > 0)
+                        return true;
+                }
+            }
+
+            return false;
         }
 
         protected void onPostExecute (Boolean resultat){
-            afficher(resultat, kill);
+            afficher(resultat, kill, players_feud,guild_feud);
         }
     }
 
-    void afficher (Boolean resultat,Kill kill) {
+    void afficher (Boolean resultat,Kill kill, List<Kill> players_feud, List<Kill> guild_feud) {
         this.kill = kill;
         if (resultat) {
 
@@ -278,11 +295,25 @@ public class KillDetailActivity extends AppCompatActivity {
             textView_guild_victim.setText(player.getFullGuild());
             textView_averageItemPower_victim.setText(String.valueOf(player.getAverageItemPower()));
 
-            participantsAdapter = new ParticipantsAdapter(kill.getParticipants());
-            rv_participants.setAdapter(participantsAdapter);
+            if (kill.getNumberOfParticipants() > 0) {
+                participantsAdapter = new ParticipantsAdapter(kill.getParticipants());
+                rv_participants.setAdapter(participantsAdapter);
+            }
 
-            groupMembersAdapter = new GroupMembersAdapter(kill.getGroupMembers());
-            rv_groupMembers.setAdapter(groupMembersAdapter);
+            if (kill.getGroupMemberCount() > 0) {
+                groupMembersAdapter = new GroupMembersAdapter(kill.getGroupMembers());
+                rv_groupMembers.setAdapter(groupMembersAdapter);
+            }
+
+            if (players_feud.size()>0) {
+                playersFeudAdapter = new KillAdapter(players_feud);
+                rv_players_feud.setAdapter(playersFeudAdapter);
+            }
+
+            if (guild_feud.size()>0) {
+                guildFeudAdapter = new KillAdapter(guild_feud);
+                rv_guild_feud.setAdapter(guildFeudAdapter);
+            }
 
             afficherPlayer(kill.getKiller());
         }

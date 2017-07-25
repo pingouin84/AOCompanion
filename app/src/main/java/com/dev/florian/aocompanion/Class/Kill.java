@@ -16,7 +16,7 @@ import java.util.List;
 public class Kill {
 
     private String timeStamp;
-    private int numberOfParticipants,EventId,damageTotal,TotalVictimKillFame;
+    private int numberOfParticipants,groupMemberCount,EventId,damageTotal,TotalVictimKillFame;
     private Player killer, victim;
     private List<Player> participants,groupMembers;
 
@@ -26,6 +26,7 @@ public class Kill {
         kill.killer = Player.parse(object.optJSONObject("Killer"));
         kill.victim = Player.parse(object.optJSONObject("Victim"));
         kill.numberOfParticipants = object.optInt("numberOfParticipants");
+        kill.groupMemberCount = object.optInt("groupMemberCount");
         kill.EventId = object.optInt("EventId");
         kill.TotalVictimKillFame = object.optInt("TotalVictimKillFame");
 
@@ -130,5 +131,13 @@ public class Kill {
 
     public void setGroupMembers(List<Player> groupMembers) {
         this.groupMembers = groupMembers;
+    }
+
+    public int getGroupMemberCount() {
+        return groupMemberCount;
+    }
+
+    public void setGroupMemberCount(int groupMemberCount) {
+        this.groupMemberCount = groupMemberCount;
     }
 }
