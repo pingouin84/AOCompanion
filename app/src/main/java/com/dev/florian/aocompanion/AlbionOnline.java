@@ -17,16 +17,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-/**
- * Created by flori on 14/07/2017.
- */
-
 public class AlbionOnline {
 
     public static String domaine = "https://albiononline.com";
+    public static String domaine_api = "https://gameinfo.albiononline.com/api/gameinfo";
 
     public static final String TOP_PVP_KILLS = "TOP_PVP_KILLS";
     public static final String RECENT_KILLS = "RECENT_KILLS";
+    public static final String TOP_BATTLES = "TOP_BATTLES";
+    public static final String RECENT_BATTLES = "RECENT_BATTLES";
     public static final String NEWS_DEV = "developer";
     public static final String NEWS_COM = "community";
 
@@ -86,12 +85,33 @@ public class AlbionOnline {
     public List<Kill> getKillList(String param) {
         List<Kill> killList = new ArrayList<>();
         try {
-            //JSONObject object = new JSONObject(getJson(""));
             JSONArray array = new JSONArray();
             if (param == TOP_PVP_KILLS)
-                array = new JSONArray(getJson("https://gameinfo.albiononline.com/api/gameinfo/events/killfame?range=month&offset=0&limit=21"));
+                array = new JSONArray(getJson(domaine_api+"/events/killfame?range=month&offset=0&limit=21"));
             if (param == RECENT_KILLS)
-                array = new JSONArray(getJson("https://gameinfo.albiononline.com/api/gameinfo/events?offset=50&limit=21"));
+                array = new JSONArray(getJson(domaine_api+"/events?offset=0&limit=21"));
+
+            for (int x=0; x< array.length();x++){
+                JSONObject  object = array.getJSONObject(x);
+                killList.add(Kill.parse(object));
+            }
+            return killList;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
+    public List<Kill> getBattleList(String param) {
+        List<Kill> killList = new ArrayList<>();
+        try {
+            JSONArray array = new JSONArray();
+            if (param == TOP_BATTLES)
+                array = new JSONArray(getJson(domaine_api+"/battles?range=month&offset=0&limit=21&sort=totalfame"));
+            if (param == RECENT_BATTLES)
+                array = new JSONArray(getJson(domaine_api+"/battles?offset=0&limit=21&sort=recent"));
 
             for (int x=0; x< array.length();x++){
                 JSONObject  object = array.getJSONObject(x);
@@ -109,7 +129,7 @@ public class AlbionOnline {
     public Kill getKill(int param) {
         Kill kill = new Kill();
         try {
-            JSONObject object = new JSONObject(getJson("https://gameinfo.albiononline.com/api/gameinfo/events/"+param));
+            JSONObject object = new JSONObject(getJson(domaine_api+"/events/"+param));
             kill = Kill.parse(object);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -122,7 +142,7 @@ public class AlbionOnline {
         Item item = new Item();
 
         try {
-            JSONObject object = new JSONObject(getJson("https://gameinfo.albiononline.com/api/gameinfo/items/"+name+"/data"));
+            JSONObject object = new JSONObject(getJson(domaine_api+"/items/"+name+"/data"));
             item = Item.parseItem(object);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -134,7 +154,7 @@ public class AlbionOnline {
     public List<Kill> getPlayersFeud(String idKiller, String idVictim) {
         List<Kill> killList = new ArrayList<>();
         try {
-            JSONArray array = new JSONArray(getJson("https://gameinfo.albiononline.com/api/gameinfo/events/"+idKiller+"/history/"+idVictim));
+            JSONArray array = new JSONArray(getJson(domaine_api+"/events/"+idKiller+"/history/"+idVictim));
             for (int x=0; x< array.length();x++){
                 JSONObject  object = array.getJSONObject(x);
                 killList.add(Kill.parse(object));
@@ -149,7 +169,7 @@ public class AlbionOnline {
     public List<Kill> getGuildFeud(String idGuildKiller, String idGuildVictim) {
         List<Kill> killList = new ArrayList<>();
         try {
-            JSONArray array = new JSONArray(getJson("https://gameinfo.albiononline.com/api/gameinfo/guilds/"+idGuildKiller+"/feud/"+idGuildVictim));
+            JSONArray array = new JSONArray(getJson(domaine_api+"/guilds/"+idGuildKiller+"/feud/"+idGuildVictim));
             for (int x=0; x< array.length();x++){
                 JSONObject  object = array.getJSONObject(x);
                 killList.add(Kill.parse(object));

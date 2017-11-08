@@ -18,7 +18,7 @@ import com.dev.florian.aocompanion.Class.Kill;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class KillBoardFragment extends Fragment {
@@ -33,11 +33,11 @@ public class KillBoardFragment extends Fragment {
 
     private KillAdapter adapter;
 
-    @Bind(R.id.recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView ;
-    @Bind(R.id.tab_pvp_kills)
+    @BindView(R.id.tab_pvp_kills)
     TabLayout tabLayout_kills;
-    @Bind(R.id.progressBar)
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
     public KillBoardFragment() {

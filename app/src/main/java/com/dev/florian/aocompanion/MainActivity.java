@@ -104,12 +104,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_items) {
             fragmentTransaction.replace(R.id.FrameFragment, ItemsFragment.newInstance("",""));
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         //toolbar.setTitle(item.getTitle());

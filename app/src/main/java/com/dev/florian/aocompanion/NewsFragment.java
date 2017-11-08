@@ -18,18 +18,18 @@ import com.dev.florian.aocompanion.Class.News;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NewsFragment extends Fragment {
 
     private NewsAdapter adapter;
 
-    @Bind(R.id.news_recycler_view)
+    @BindView(R.id.news_recycler_view)
     RecyclerView recyclerView ;
-    @Bind(R.id.tab_layout)
+    @BindView(R.id.tab_layout)
     TabLayout tabLayout ;
-    @Bind(R.id.progressBar)
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
     public NewsFragment() {

@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class KillDetailActivity extends AppCompatActivity {
@@ -41,86 +41,86 @@ public class KillDetailActivity extends AppCompatActivity {
     private GroupMembersAdapter groupMembersAdapter;
     private KillAdapter playersFeudAdapter,guildFeudAdapter;
 
-    @Bind(R.id.tab_layout)
+    @BindView(R.id.tab_layout)
     TabLayout tab_layout;
 
-    @Bind(R.id.ll_general)
+    @BindView(R.id.ll_general)
     LinearLayout ll_general;
-    @Bind(R.id.ll_killer)
+    @BindView(R.id.ll_killer)
     LinearLayout ll_killer;
-    @Bind(R.id.ll_victim)
+    @BindView(R.id.ll_victim)
     LinearLayout ll_victim;
-    @Bind(R.id.ll_gear)
+    @BindView(R.id.ll_gear)
     LinearLayout ll_gear;
-    @Bind(R.id.ll_player_feud)
+    @BindView(R.id.ll_player_feud)
     LinearLayout ll_player_feud;
-    @Bind(R.id.ll_guild_feud)
+    @BindView(R.id.ll_guild_feud)
     LinearLayout ll_guild_feud;
-    @Bind(R.id.ll_inventory)
+    @BindView(R.id.ll_inventory)
     LinearLayout ll_inventory;
-    @Bind(R.id.ll_participants)
+    @BindView(R.id.ll_participants)
     LinearLayout ll_participants;
-    @Bind(R.id.ll_groupMembers)
+    @BindView(R.id.ll_groupMembers)
     LinearLayout ll_groupMembers;
 
-    @Bind(R.id.progressBar)
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
-    @Bind(R.id.label_killer_victim)
+    @BindView(R.id.label_killer_victim)
     TextView label_killer_victim;
-    @Bind(R.id.label_killer_victim_gear)
+    @BindView(R.id.label_killer_victim_gear)
     TextView label_killer_victim_gear;
-    @Bind(R.id.textView_name_killer)
+    @BindView(R.id.textView_name_killer)
     TextView textView_name_killer;
-    @Bind(R.id.textView_guild_killer)
+    @BindView(R.id.textView_guild_killer)
     TextView textView_guild_killer;
-    @Bind(R.id.textView_fame_killer)
+    @BindView(R.id.textView_fame_killer)
     TextView textView_fame_killer;
-    @Bind(R.id.textView_averageItemPower_killer)
+    @BindView(R.id.textView_averageItemPower_killer)
     TextView textView_averageItemPower_killer;
-    @Bind(R.id.textView_averageItemPower_victim)
+    @BindView(R.id.textView_averageItemPower_victim)
     TextView textView_averageItemPower_victim;
-    @Bind(R.id.textView_damage_killer)
+    @BindView(R.id.textView_damage_killer)
     TextView textView_damage_killer;
-    @Bind(R.id.textView_name_victim)
+    @BindView(R.id.textView_name_victim)
     TextView textView_name_victim;
-    @Bind(R.id.textView_guild_victim)
+    @BindView(R.id.textView_guild_victim)
     TextView textView_guild_victim;
-    @Bind(R.id.textView_timestamp)
+    @BindView(R.id.textView_timestamp)
     TextView textView_timestamp;
-    @Bind(R.id.textView_totalVictimKillFame)
+    @BindView(R.id.textView_totalVictimKillFame)
     TextView textView_totalVictimKillFame;
 
-    @Bind(R.id.imageView_armor)
+    @BindView(R.id.imageView_armor)
     ImageView imageView_armor;
-    @Bind(R.id.imageView_bag)
+    @BindView(R.id.imageView_bag)
     ImageView imageView_bag;
-    @Bind(R.id.imageView_cap)
+    @BindView(R.id.imageView_cap)
     ImageView imageView_cap;
-    @Bind(R.id.imageView_food)
+    @BindView(R.id.imageView_food)
     ImageView imageView_food;
-    @Bind(R.id.imageView_head)
+    @BindView(R.id.imageView_head)
     ImageView imageView_head;
-    @Bind(R.id.imageView_mainhand)
+    @BindView(R.id.imageView_mainhand)
     ImageView imageView_mainhand;
-    @Bind(R.id.imageView_offhand)
+    @BindView(R.id.imageView_offhand)
     ImageView imageView_offhand;
-    @Bind(R.id.imageView_potion)
+    @BindView(R.id.imageView_potion)
     ImageView imageView_potion;
-    @Bind(R.id.imageView_mount)
+    @BindView(R.id.imageView_mount)
     ImageView imageView_mount;
-    @Bind(R.id.imageView_shoes)
+    @BindView(R.id.imageView_shoes)
     ImageView imageView_shoes;
 
-    @Bind(R.id.rv_inventory)
+    @BindView(R.id.rv_inventory)
     RecyclerView rv_inventory;
-    @Bind(R.id.rv_participants)
+    @BindView(R.id.rv_participants)
     RecyclerView rv_participants;
-    @Bind(R.id.rv_groupMembers)
+    @BindView(R.id.rv_groupMembers)
     RecyclerView rv_groupMembers;
-    @Bind(R.id.rv_players_feud)
+    @BindView(R.id.rv_players_feud)
     RecyclerView rv_players_feud;
-    @Bind(R.id.rv_guild_feud)
+    @BindView(R.id.rv_guild_feud)
     RecyclerView rv_guild_feud;
 
     @Override

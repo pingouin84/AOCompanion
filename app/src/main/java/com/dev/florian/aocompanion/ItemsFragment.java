@@ -15,7 +15,7 @@ import com.dev.florian.aocompanion.Class.Category;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ItemsFragment extends Fragment {
@@ -29,9 +29,9 @@ public class ItemsFragment extends Fragment {
     private String mParam2;
 
 
-    @Bind(R.id.spinner_category)
+   @BindView(R.id.spinner_category)
     Spinner category ;
-    @Bind(R.id.spinner_tier)
+   @BindView(R.id.spinner_tier)
     Spinner tier;
 
     public ItemsFragment() {

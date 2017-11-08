@@ -47,7 +47,8 @@ public class Kill {
             }
 
             for (Player player : kill.participants) {
-                player.setDamage(player.getDamageDone()*100/kill.damageTotal);
+                if (kill.damageTotal > 0)
+                    player.setDamage(player.getDamageDone()*100/kill.damageTotal);
                 if (player.getName().equals(kill.killer.getName()))
                     kill.killer.setDamage(player.getDamage());
             }
@@ -65,79 +66,39 @@ public class Kill {
         return formatter.format(new Date(timestamp.getTime()));
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
     public int getNumberOfParticipants() {
         return numberOfParticipants;
-    }
-
-    public void setNumberOfParticipants(int numberOfParticipants) {
-        this.numberOfParticipants = numberOfParticipants;
-    }
-
-    public int getTotalVictimKillFame() {
-        return TotalVictimKillFame;
-    }
-
-    public void setTotalVictimKillFame(int totalVictimKillFame) {
-        this.TotalVictimKillFame = totalVictimKillFame;
-    }
-
-    public Player getKiller() {
-        return killer;
-    }
-
-    public void setKiller(Player killer) {
-        this.killer = killer;
-    }
-
-    public Player getVictim() {
-        return victim;
-    }
-
-    public void setVictim(Player victim) {
-        this.victim = victim;
-    }
-
-    public int getEventId() {
-        return EventId;
-    }
-
-    public void setEventId(int eventId) {
-        EventId = eventId;
-    }
-
-    public List<Player> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<Player> participants) {
-        this.participants = participants;
-    }
-
-    public int getDamageTotal() {
-        return damageTotal;
-    }
-
-    public void setDamageTotal(int damageTotal) {
-        this.damageTotal = damageTotal;
-    }
-
-    public List<Player> getGroupMembers() {
-        return groupMembers;
-    }
-
-    public void setGroupMembers(List<Player> groupMembers) {
-        this.groupMembers = groupMembers;
     }
 
     public int getGroupMemberCount() {
         return groupMemberCount;
     }
 
-    public void setGroupMemberCount(int groupMemberCount) {
-        this.groupMemberCount = groupMemberCount;
+    public int getEventId() {
+        return EventId;
+    }
+
+    public int getDamageTotal() {
+        return damageTotal;
+    }
+
+    public int getTotalVictimKillFame() {
+        return TotalVictimKillFame;
+    }
+
+    public Player getKiller() {
+        return killer;
+    }
+
+    public Player getVictim() {
+        return victim;
+    }
+
+    public List<Player> getParticipants() {
+        return participants;
+    }
+
+    public List<Player> getGroupMembers() {
+        return groupMembers;
     }
 }
